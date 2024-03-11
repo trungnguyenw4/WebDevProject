@@ -113,6 +113,7 @@ SignInManager<IdentityUser> signInManager, EmailService emailService)
  _signInManager = signInManager;
  _emailService = emailService;
  }
+ 
  [HttpPost("register")]
  public async Task<IActionResult> Register(AuthModel model)
  {
@@ -135,6 +136,7 @@ token }, Request.Scheme);
  return BadRequest(result.Errors);
  }
  // Add an action to handle email verification
+ 
  [HttpGet("verify-email")]
  public async Task<IActionResult> VerifyEmail(string userId, string token)
  {
@@ -560,5 +562,29 @@ I then needed to migrate my web app to cloud database and update that database b
 dotnet ef migrations add CloudDatabase
 dotnet ef database update 
 
-After successfully done that, I had to connect Azure with Visual Studio Code. Right after having established a connection with Azure, I can right click on my newly created WebApp template and deploy my developed web app.
+After successfully done that, I had to connect Azure with Visual Studio Code. Right after having established a connection with Azure, I can right click on my newly created WebApp template and deploy my finished web app.
 
+During this project, I faced a major problem on connecting my web app with the server. Although successfully migrated my application to Azure, and provided the correct connection string of the target database, the streaming log of my application keeps giving me 
+
+
+Error Number: 18456, State: 1, Class: 14 is related to login failure
+
+I then made sure all Azure services are allowed to connect to my target databse. Next, I added the IP of my web app to the firewall rule
+and set the connection string of my web app manually on Azure but it still does not work. Finally, I reached the limits of my database and
+face this error.
+
+Error Number:42119,State:1,Class:20 is related to connection to the Azure SQL Database was blocked due to excessive resource usage.
+
+Overall, this project met its requirements that are:
+
+• The backend service should provide RESTful APIs for basic CRUD operations on relevant
+entities.
+• Implement user authentication using Identity Framework.
+• Configure user roles (e.g., Admin, User) with different access permissions.
+• JWT tokens should be used for user authentication and authorization.
+• An email service should be integrated to send a confirmation email upon user sign-up.
+• Proper error handling and validation should be implemented.
+• Use Dependency Injection for better code organization.
+• Implement logging for tracking application events.
+
+However, this project still has a lot of space for improvement. I still need to develop a model to give users recommendations and apply it into my program. Besides, more information needed to be added into Models to provide enough input for the recommendation algorithm. I also need to work on the connection of the web app and the cloud server.
