@@ -9,8 +9,8 @@ namespace WebDevProject.Models
         public DateTime ClaimDate { get; set; }
         public decimal ClaimAmount { get; set; }
 
-        // Navigation property
-        public InsurancePolicy InsurancePolicy { get; set; }
+        
+
     }
 }
 

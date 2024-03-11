@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/InsurancePlatform.sqlproj": {}
+  },
+  "projects": {
+    "/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/InsurancePlatform.sqlproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/InsurancePlatform.sqlproj",
+        "projectName": "InsurancePlatform",
+        "projectPath": "/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/InsurancePlatform.sqlproj",
+        "packagesPath": "/Users/trungnguyen/.nuget/packages/",
+        "outputPath": "/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/obj/",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "/Users/trungnguyen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net46"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net46": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "noWarn": [
+            "NU5128"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net46": {
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.0, )"
+            }
+          }
+        }
+      }
+    }
+  }
+}

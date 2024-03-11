@@ -5,12 +5,11 @@ namespace WebDevProject.Models
 	{
         public int HealthInformationId { get; set; }
         public int CustomerId { get; set; }
-        public string MedicalHistory { get; set; }
+        public string? MedicalHistory { get; set; }
         public string CurrentHealthStatus { get; set; }
         public string LifestyleHabits { get; set; }
 
-        // Navigation property
-        public Customer Customer { get; set; }
+
     }
 }
 

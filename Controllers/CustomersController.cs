@@ -7,13 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebDevProject.Models;
 using WebDevelopmentProject.Models;
+using NuGet.Packaging.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebDevProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
+    
+    [Authorize(Roles = "Admin,Member" )]
     public class CustomersController : ControllerBase
     {
+
         private readonly InsuranceContext _context;
 
         public CustomersController(InsuranceContext context)
@@ -24,7 +30,7 @@ namespace WebDevProject.Controllers
         // GET: api/Customers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetC()
-        {
+        {   //logger.LogInformation("Getting all customers");
             return await _context.C.ToListAsync();
         }
 
@@ -35,7 +41,7 @@ namespace WebDevProject.Controllers
             var customer = await _context.C.FindAsync(id);
 
             if (customer == null)
-            {
+            {   //logger.LogWarning("Aint good");
                 return NotFound();
             }
 
@@ -48,7 +54,8 @@ namespace WebDevProject.Controllers
         public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
             if (id != customer.CustomerId)
-            {
+            {   
+                //logger.LogWarning("Aint good");
                 return BadRequest();
             }
 

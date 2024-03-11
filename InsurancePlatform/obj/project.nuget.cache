@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "rpAEgBf8WjgE6IKVTTbaVqtMrK6YbVXV7qZLQ7LYjOpUITovSw7a5MzuUkPooG11YGjJF4b5gT0bR0Lw8xplVA==",
+  "success": true,
+  "projectFilePath": "/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/InsurancePlatform.sqlproj",
+  "expectedPackageFiles": [
+    "/Users/trungnguyen/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.0/microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
+    "/Users/trungnguyen/.nuget/packages/microsoft.netframework.referenceassemblies.net46/1.0.0/microsoft.netframework.referenceassemblies.net46.1.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

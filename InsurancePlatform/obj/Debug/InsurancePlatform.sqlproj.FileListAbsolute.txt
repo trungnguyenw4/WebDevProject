@@ -1,0 +1,9 @@
+/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/bin/Debug/InsurancePlatform.dacpac
+/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/bin/Debug/InsurancePlatform.dll
+/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/bin/Debug/InsurancePlatform.pdb
+/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/obj/Debug/Model.xml
+/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/obj/Debug/refactor.xml
+/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/obj/Debug/postdeploy.sql
+/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/obj/Debug/predeploy.sql
+/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/obj/Debug/InsurancePlatform.dll
+/Users/trungnguyen/Desktop/WebDevProject/InsurancePlatform/obj/Debug/InsurancePlatform.pdb

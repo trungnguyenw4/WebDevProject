@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 
 namespace WebDevProject.Models
@@ -13,10 +14,10 @@ public class InsurancePolicy
         public DateTime EndDate { get; set; }
         public decimal PremiumAmount { get; set; }
 
-        // Navigation property
-        public Customer Customer { get; set; }
-
         // Additional property for relationship with claims
+        [JsonIgnore]
         public ICollection<InsuranceClaim>? InsuranceClaims { get; set; }
+        
+
     }
 }

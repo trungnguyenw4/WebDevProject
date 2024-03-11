@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bin/Release/net8.0/publish",
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/a5436c55-9633-4d51-a246-55a2298c8fc6/resourceGroups/WebDev/providers/Microsoft.Web/sites/newInsurancePlatform"
+}
