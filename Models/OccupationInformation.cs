@@ -9,8 +9,7 @@ namespace WebDevProject.Models
         public string EmployerName { get; set; }
         public string EmploymentStability { get; set; }
 
-        // Navigation property
-        public Customer Customer { get; set; }
+
     }
 }
 

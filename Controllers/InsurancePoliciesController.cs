@@ -7,13 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebDevProject.Models;
 using WebDevelopmentProject.Models;
+using NuGet.Packaging.Core;
+using NuGet.Protocol.Core.Types;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebDevProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
+    [Authorize(Roles = "Admin,Member" )]
     public class InsurancePoliciesController : ControllerBase
     {
+        // private readonly IRepositoryCertificateInfo repository;
+        // private readonly ILogger<InsurancePoliciesController> logger;
+
+        // public InsurancePoliciesController(IRepositoryCertificateInfo repository,ILogger<InsurancePoliciesController> logger ){
+        //      this.repository=repository;
+        //      this.logger=logger;
+        // }
         private readonly InsuranceContext _context;
 
         public InsurancePoliciesController(InsuranceContext context)
@@ -23,8 +35,9 @@ namespace WebDevProject.Controllers
 
         // GET: api/InsurancePolicies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<InsurancePolicy>>> GetInsurancePolics()
-        {
+        public async Task<ActionResult<IEnumerable<InsurancePolicy>>> GetInsurancePolicies()
+        {   
+            //logger.LogInformation("Getting policies");
             return await _context.InsurancePolics.ToListAsync();
         }
 
@@ -35,10 +48,12 @@ namespace WebDevProject.Controllers
             var insurancePolicy = await _context.InsurancePolics.FindAsync(id);
 
             if (insurancePolicy == null)
-            {
+            {   
+                //logger.LogInformation("Policy not found.");
                 return NotFound();
             }
 
+            //logger.LogWarning("Policy found.");
             return insurancePolicy;
         }
 

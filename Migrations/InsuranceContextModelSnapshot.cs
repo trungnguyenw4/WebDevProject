@@ -219,9 +219,6 @@ namespace WebDevProject.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("CustomerId1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("TEXT");
 
@@ -242,8 +239,6 @@ namespace WebDevProject.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.HasIndex("CustomerId1");
-
                     b.ToTable("C");
                 });
 
@@ -259,10 +254,10 @@ namespace WebDevProject.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Debts")
+                    b.Property<decimal?>("Debts")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("FinancialDependents")
+                    b.Property<int?>("FinancialDependents")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("FinancialInformationId");
@@ -291,7 +286,6 @@ namespace WebDevProject.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MedicalHistory")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("HealthInformationId");
@@ -436,82 +430,60 @@ namespace WebDevProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebDevProject.Models.Customer", b =>
-                {
-                    b.HasOne("WebDevProject.Models.Customer", null)
-                        .WithMany("Customers")
-                        .HasForeignKey("CustomerId1");
-                });
-
             modelBuilder.Entity("WebDevProject.Models.FinancialInformation", b =>
                 {
-                    b.HasOne("WebDevProject.Models.Customer", "Customer")
+                    b.HasOne("WebDevProject.Models.Customer", null)
                         .WithOne("FinancialInformation")
                         .HasForeignKey("WebDevProject.Models.FinancialInformation", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("WebDevProject.Models.HealthInformation", b =>
                 {
-                    b.HasOne("WebDevProject.Models.Customer", "Customer")
+                    b.HasOne("WebDevProject.Models.Customer", null)
                         .WithOne("HealthInformation")
                         .HasForeignKey("WebDevProject.Models.HealthInformation", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("WebDevProject.Models.InsuranceClaim", b =>
                 {
-                    b.HasOne("WebDevProject.Models.InsurancePolicy", "InsurancePolicy")
+                    b.HasOne("WebDevProject.Models.InsurancePolicy", null)
                         .WithMany("InsuranceClaims")
                         .HasForeignKey("InsurancePolicyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("InsurancePolicy");
                 });
 
             modelBuilder.Entity("WebDevProject.Models.InsurancePolicy", b =>
                 {
-                    b.HasOne("WebDevProject.Models.Customer", "Customer")
+                    b.HasOne("WebDevProject.Models.Customer", null)
                         .WithMany("InsurancePolicies")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("WebDevProject.Models.OccupationInformation", b =>
                 {
-                    b.HasOne("WebDevProject.Models.Customer", "Customer")
+                    b.HasOne("WebDevProject.Models.Customer", null)
                         .WithOne("OccupationInformation")
                         .HasForeignKey("WebDevProject.Models.OccupationInformation", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("WebDevProject.Models.Customer", b =>
                 {
-                    b.Navigation("Customers");
+                    b.Navigation("FinancialInformation");
 
-                    b.Navigation("FinancialInformation")
-                        .IsRequired();
-
-                    b.Navigation("HealthInformation")
-                        .IsRequired();
+                    b.Navigation("HealthInformation");
 
                     b.Navigation("InsurancePolicies");
 
-                    b.Navigation("OccupationInformation")
-                        .IsRequired();
+                    b.Navigation("OccupationInformation");
                 });
 
             modelBuilder.Entity("WebDevProject.Models.InsurancePolicy", b =>
