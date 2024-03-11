@@ -9,8 +9,30 @@ Personal Information, Financial Status, Heath Status, historical Insurance Claim
 I created corresponding files/classes such as: Customers.cs, FinancialStatus.cs, HeathInformationStatus.cs, InsuranceClaim.cs, InsurancePolicy.cs, OccupationInformation.cs. 
 Those classes might not capture the whole picture of giving Insurance policies recommendation practice but they are the foundation ones of one user. 
 
-After creating those classes, I would like to add the InsuranceContext.cs file to the Models folder. This class will help the application accessing and interacting 
-with its database that will be automatically created and updated by Entity Framework based on my Model classes. 
+After creating those classes, I would like to add the InsuranceContext.cs file to the Models folder. This class will help the application accessing and interacting with its database that will be automatically created and updated by Entity Framework based on my Model classes. 
+
+namespace WebDevelopmentProject.Models
+{
+	public class InsuranceContext: IdentityDbContext<IdentityUser>
+    {
+
+        public InsuranceContext(DbContextOptions<InsuranceContext> options): base(options)
+        {
+
+        }
+
+
+        public DbSet<Customer> C { get; set; }
+        public DbSet<FinancialInformation> FinancialInformation { get; set; }
+        public DbSet<InsuranceClaim> InsuranceClaim { get; set; }
+        public DbSet<OccupationInformation> OccupationInformation { get; set; }
+        public DbSet<HealthInformation> HealthInformation { get; set; }
+        public DbSet<InsurancePolicy> InsurancePolics { get; set; }
+
+   
+
+    }
+}
 
 
 Next, I had to update the appsettings.json with connection string:
@@ -28,7 +50,23 @@ builder.Services.AddDbContext<InsuranceContext>(options =>
 
 At this stage, my application was ready for the first migration and Database update.
 
-It is noteworthy that we could exclude fields that should be ignored from the endpoints by adding [JsonIgnore] in those 5 foudation classes.
+I continued by generating the basic controllers of my application with the help of:
+
+dotnet tool install --local dotnet-aspnet-codegenerator
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+Adding controllers:
+
+dotnet aspnet-codegenerator controller -name CustomersController -async -api -m Customer -dc InsuranceContext -outDir Controllers
+dotnet aspnet-codegenerator controller -name InsurancePoliciesController -async -api -m InsurancePolicy -dc InsuranceContext -outDir Controllers
+dotnet aspnet-codegenerator controller -name FinancialStatusController -async -api -m FinancialStatus -dc InsuranceContext -outDir Controllers
+dotnet aspnet-codegenerator controller -name HealthInformationController -async -api -m HealthInformation -dc InsuranceContext -outDir Controllers
+dotnet aspnet-codegenerator controller -name OccupationInformationController -async -api -m OccupationInformation -dc InsuranceContext -outDir Controllers
+dotnet aspnet-codegenerator controller -name InsuranceClaimController -async -api -m InsuranceClaim -dc InsuranceContext -outDir Controllers
+
+
+It is noteworthy that we could exclude fields that should be ignored from the endpoints by adding [JsonIgnore].
 
 In order to add identity support in my application such as user accounts, sign up, sign in and sign out, It is required to create an email service on sign up by 
 updating InsuranceContext.cs file 
@@ -538,6 +576,82 @@ In appsetting.json, I describled logging as follows:
 
 I wanted to organize application recored logs by date order, each date will has its own log, and they will be store inside Log folder. Besides, those logs only appears when an event hit a certain level of critical, so not all events will be recorded. That helps in term of optimizing memory storage usage.
 
+We can do some tests to make sure that the application functions well.
+
+**AccountController actions:**
+
+register user:
+POST http://localhost:5206/api/account/register
+
+body raw JSON
+{
+ "Email": "franks08cfc@gmail.com",
+ "Password": "Password123!"
+}
+
+login:
+POST http://localhost:5206/api/account/login
+
+body raw JSON
+{
+ "Email": "franks08cfc@gmail.com",
+ "Password": "Password123!"
+}
+
+logout:
+
+POST http://localhost:5206/api/account/logout
+
+body raw JSON
+{
+ "Email": "franks08cfc@gmail.com",
+ "Password": "Password123!"
+
+For this group of actions, there is no privilege assigning yet since a random web user can register account with my application.
+
+***RolesController action***
+
+GET
+body raw JSON
+http://localhost:5206/api/Roles
+
+POST
+body raw JSON
+http://localhost:5206/api/Roles/
+{
+ "RoleName": "Admin"
+}
+
+POST
+body raw JSON
+http://localhost:5206/api/Roles/assign-role-to-user
+{
+{"UserId" : "3827362d-2ffb-4da0-9f54-d7c40d213a04",
+ "RoleName": "Admin"
+}
+
+For this group of actions, there is only "Admin" can add new roles, assign role, and make changes.
+
+****Others****
+POST http://localhost:5206/api/Customers
+
+body raw JSON
+{
+"CustomerId" : 1 ,
+"FullName" : "James Nguyen",
+"DateOfBirth" : "1990-05-15",
+"Gender" :"Male",
+"MaritalStatus" : "Married",
+"ContactNumber" : "123456789",
+"EmailAddress" : "helloword@hotmail.com"
+}
+
+GET http://localhost:5206/api/Customers
+
+...
+For ending points HeathInformation, OccupationInformation, InsuranceClaim, InsurancePolices we can do the same as we did with Customers.
+
+For this group of actions, both "Admin" and "User" are able to take them. Howver, "User" should only work on their owns data. I'm still working on this logic.
 
 Finally, I would like to deploy my web app to Azure. I started by going to Azure Portal and creating new web app template. After that, I created a new server and then a new database for my web app. After a new database has been created, I was able to grab its connection string as following:
 "Server=tcp:insuranceplatform.database.windows.net,1433;Initial Catalog=NewDatabaseForInsurancePlatform;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication="Active Directory Default";"
@@ -563,6 +677,24 @@ dotnet ef migrations add CloudDatabase
 dotnet ef database update 
 
 After successfully done that, I had to connect Azure with Visual Studio Code. Right after having established a connection with Azure, I can right click on my newly created WebApp template and deploy my finished web app.
+
+***Test***
+GET
+raw JSON
+insuranceplatform.database.windows.net/weatherforecast
+
+
+POST
+raw JSON
+insuranceplatform.database.windows.net/api/account/logout
+
+
+GET
+raw JSON
+insuranceplatform.database.windows.net/api/Roles
+
+*******
+
 
 During this project, I faced a major problem on connecting my web app with the server. Although successfully migrated my application to Azure, and provided the correct connection string of the target database, the streaming log of my application keeps giving me 
 
