@@ -4,6 +4,7 @@ roles, and access control. It can also trigger email service upon user sign-up. 
 I would use GitHub repository for version control. After successfully developed my application locally, I would deploy it as well as migrate 
 its database on Azure.
 
+
 To start off, I needed to create a new webapi inside my empty WebDevProject folder, then I opened this folder with Visual Code Studio and
 started building my web application.
 
@@ -15,6 +16,7 @@ recommendation practice but they are the foundation ones of one user.
 
 After creating those classes, I would like to add the InsuranceContext.cs file to the Models folder. This class will help the application 
 accessing and interacting with its database that will be automatically created and updated by Entity Framework based on my Model classes. 
+
 
 namespace WebDevelopmentProject.Models
 {
@@ -73,8 +75,10 @@ dotnet aspnet-codegenerator controller -name InsuranceClaimController -async -ap
 
 It is noteworthy that we could exclude fields that should be ignored from the endpoints by adding [JsonIgnore].
 
+
 In order to add identity support in my application such as user accounts, sign up, sign in and sign out, It is required to create an email 
 service on sign up by updating InsuranceContext.cs file 
+
 
 From
 public class InsuranceContext : DbContext
@@ -98,8 +102,10 @@ public class AuthModel
  public string Password { get; set; }
  }
 
+
 Next, I created a new folder named Services in the project directory, and put two new classes named EmailService.cs and EmailSettings.cs 
 inside Services folder.
+
 
 public class EmailService
 {
@@ -548,6 +554,7 @@ For my application, at this stage I just have two Roles: Admin and Member. While
 Next, I would like to allow my application to generate logs for tracking events when the application is running. The logs can be put on console to
 bring insights or put into a .txt file for recording and later use purpose.
 
+
 In appsetting.json, I describled logging as follows:
 
 "Logging": {
@@ -582,9 +589,11 @@ In appsetting.json, I describled logging as follows:
   "AllowedHosts": "*"
 }
 
+
 I wanted to organize application recored logs by date order, each date will has its own log, and they will be store inside Log folder.
 Besides, those logs only appears when an event hit a certain level of critical, so not all events will be recorded. That helps in term of
 optimizing storage usage.
+
 
 We can do some tests to make sure that the application functions well.
 
@@ -661,6 +670,7 @@ GET http://localhost:5206/api/Customers
 ...
 For ending points HeathInformation, OccupationInformation, InsuranceClaim, InsurancePolices we can do the same as we did with Customers.
 
+
 For this group of actions, both "Admin" and "User" are able to take them. Howver, "User" should only work on their owns data. 
 I'm still working on this logic.
 
@@ -671,6 +681,7 @@ its connection string as following:
 
 The above connection string is used for Microsoft Entra passwordless authentication way (ADO.NET) that provides consistent access to 
 data sources.
+
 
 Next, I went back to my Visual Code studio and update the ConnectionString in appsetting.json, from
 
@@ -690,8 +701,10 @@ I then needed to migrate my web app to cloud database and update that database b
 dotnet ef migrations add CloudDatabase
 dotnet ef database update 
 
+
 After successfully done that, I had to connect Azure with Visual Studio Code. Right after having established a connection with Azure, 
 I can right click on my newly created WebApp template and deploy my finished web app.
+
 
 ***Test***
 GET
@@ -711,8 +724,10 @@ insuranceplatform.database.windows.net/api/Roles
 *******
 
 
+
 During this project, I faced a major problem on connecting my web app with the server. Although successfully migrated my application to Azure, 
 and provided the correct connection string of the target database, the streaming log of my application keeps giving me 
+
 
 
 Error Number: 18456, State: 1, Class: 14 is related to login failure
@@ -735,6 +750,8 @@ entities.
 • Use Dependency Injection for better code organization.
 • Implement logging for tracking application events.
 
+
 However, this project still has a lot of space for improvement. I still need to develop a model to give users recommendations
 and apply it into my program. Besides, more information needed to be added into Models to provide enough input for the recommendation 
 algorithm. I also need to work on the connection of the web app and the cloud server.
+
